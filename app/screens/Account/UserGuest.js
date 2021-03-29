@@ -1,9 +1,11 @@
 import React from "react";
 import {View, StyleSheet, ScrollView, Image, Text} from "react-native";
 import {Button} from "react-native-elements"
+import {NavigationContainer, useNavigation} from "@react-navigation/native"
 
 
 export default function UserGuest(){
+    const navigation = useNavigation();
     return(
         <ScrollView centerContent={true} style={styles.viewBody}> 
             <Image source={require("../../../assets/Group3.png")}
@@ -17,6 +19,7 @@ export default function UserGuest(){
                 buttonStyle={styles.btnStyle}
                 containerStyle={styles.btnContainer}
                 title={"Login"}
+                onPress={() => navigation.navigate("login")}
                 ></Button>
             </View>
         </ScrollView>
