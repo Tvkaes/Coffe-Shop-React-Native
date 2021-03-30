@@ -17,7 +17,7 @@ export default function Login(){
             </View>
             <Divider style={styles.divider}/>
         </ScrollView>
-    )
+    );
 }
 
 function CreateAccount(){
@@ -27,7 +27,7 @@ function CreateAccount(){
               <Text style={styles.btnRegister} onPress={() =>navigation.navigate("register")}>Sign Up Here!
               </Text>  
         </Text>
-    )
+    );
 } 
 
 const styles = StyleSheet.create({
