@@ -14,31 +14,26 @@ export default function RegisterForm(props){
     const [showPassword, setShowPassword] = useState(false);
     const [showRepeatPassword, setShowRepeatPassword] = useState(false);
     const [formData, setFormData] = useState(defaultFormValue());
-    const [loading, setLoading] = useState(false);
     
-      var onSubmit = () => {
-        if (
-          isEmpty(formData.email) ||
-          isEmpty(formData.password) ||
-          isEmpty(formData.repeatPassword)
-        ) {
-          toastRef.current.show("All fields are required")
+      const onSubmit = () => {
+        if (isEmpty(formData.email) || isEmpty(formData.password) || isEmpty(formData.repeatPassword)) {
+          console.log("All fields are required")
         } else if(!validateEmail(formData.email)) {
-          toastRef.current.show("Email is not correct")
+          console.log("Email is not correct")
         } else if (formData.password !== formData.repeatPassword) {
-          toastRef.current.show("The password must be the same")
+          console.log("The password must be the same")
         } else if (size(formData.password) < 6) {
-          toastRef.current.show(
+          console.log(
             "Password must contain 6 or more characters"
           )
         } else {
           setLoading(true);
           firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password).then(() => {
-              setLoading(false);
+             
               navigation.navigate("account")
             })
             .catch(() => {
-              setLoading(false)
+              
               toastRef.current.show("The email address is already in use by another account")
             });
         }
@@ -88,7 +83,7 @@ export default function RegisterForm(props){
           }
         />
             <Button title="Sign Up" containerStyle={styles.btnContainerRegister} onPress={onSubmit}></Button>
-            <Loading isVisible={loading} text="Creando cuenta" />
+            
         </View>
     );
 }
