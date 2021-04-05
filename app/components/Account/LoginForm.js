@@ -17,22 +17,18 @@ export default function RegisterForm(props){
     const [loading, setLoading] = useState(false);
 
     const onSubmit = () =>{
-        if(isEmpty(formData.email) || isEmpty(formData.password) || isEmpty(formData.repeatPassword)){
+        if(isEmpty(formData.email) || isEmpty(formData.password)){
             toastRef.current.show("All fields required");
-        }else if(formData.password !== formData.repeatPassword){
-            toastRef.current.show("The password must be the same");
-        } else if(size(formData.password)<6){
-            toastRef.current.show("the password; a must be at least 6 characters long ");
         }else{
             setLoading(true);
-            firebase.auth().createUserWithEmailAndPassword(formData.email.trim(),formData.password)
+            firebase.auth().signInWithEmailAndPassword(formData.email.trim(),formData.password)
             .then(() =>{
                 setLoading(false);
                 navigation.navigate("Account");
             })
             .catch((err) =>{
                 setLoading(false);
-                console.log(err);
+                toastRef.current.show("Incorrect password or Email")
             })
         }
     }
@@ -67,23 +63,8 @@ export default function RegisterForm(props){
             />
           }
         />
-             <Input
-             placeholder="Repeat Password"
-             containerStyle={styles.inputForm}
-             password={true}
-             secureTextEntry={showRepeatPassword ? false : true}
-             onChange={(e) => onChange(e, "repeatPassword")}
-             rightIcon={
-              <Icon
-               type="ionicon"
-               name={showRepeatPassword ? "eye-off-outline" : "eye-outline"}
-               iconStyle={styles.iconRight}
-               onPress={() => setShowRepeatPassword(!showRepeatPassword)}
-            />
-          }
-        />
             <Button title="Sign Up" containerStyle={styles.btnContainerRegister} onPress={onSubmit}></Button>
-             <Loading isVisible={loading} text="Creating Account"/>
+             <Loading isVisible={loading} text="Logging in"/>
         </View>
     );
 }
@@ -108,7 +89,7 @@ const styles = StyleSheet.create({
         marginTop:20,
     },
     btnContainerRegister:{
-        marginTop:20,
+        marginTop:5,
         width:"90%",
         
     },

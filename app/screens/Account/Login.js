@@ -1,10 +1,12 @@
-import React from "react";
+import React,{useRef} from "react";
 import {StyleSheet,ScrollView,View,Text,Image} from "react-native";
 import {Divider} from "react-native-elements";
 import {NavigationContainer, useNavigation} from "@react-navigation/native"
+import LoginForm from "../../components/Account/LoginForm";
+import Toast from "react-native-easy-toast";
 
 export default function Login(){
-   
+   const toastRef =useRef();
     return (
         <ScrollView>
             <Image
@@ -13,9 +15,11 @@ export default function Login(){
             style={styles.logo}
             ></Image>
             <View style={styles.viewContainer}>
+                <LoginForm toastRef={toastRef}></LoginForm>
                 <CreateAccount></CreateAccount>
             </View>
             <Divider style={styles.divider}/>
+            <Toast ref={toastRef} position="center" opacity={0.9}/>
         </ScrollView>
     );
 }
