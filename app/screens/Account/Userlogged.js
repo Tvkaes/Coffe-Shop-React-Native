@@ -5,6 +5,7 @@ import Toast from "react-native-easy-toast"
 import * as firebase from "firebase";
 import Loading from "../../components/Loading"
 import InfoUser from "../../components/Account/infoUser"
+import AccountOptions from "../../components/Account/AccoutOptions"
 
 export default function UserLogged(){
     const [userInfo,setUserInfo] = useState(null)
@@ -20,8 +21,9 @@ export default function UserLogged(){
     }, [])
     return(
         <View style={styles.viewUserInfo}>
-            {userInfo && <InfoUser userInfo={userInfo} toastRef={toastRef}></InfoUser>}
-            <Text>Settings</Text>
+            {userInfo && <InfoUser userInfo={userInfo} toastRef={toastRef} 
+            setLoading={setLoading} setLoadingText={setLoadingText}></InfoUser>}
+            <AccountOptions userInfo={userInfo} toastRef={toastRef}></AccountOptions>
             <Button title="Log out" 
              onPress={() => firebase.auth().signOut()}
              buttonStyle={styles.btnLogout}
