@@ -13,14 +13,14 @@ export default function InfoUser(props){
         const resultPermissionCamera = resultPermission.permissions.camera.status
         
         if (resultPermissionCamera === "denied"){
-            toastRef.current.show("Acepta los permisos puta")
+            toastRef.current.show("accept the permissions")
         } else{
             const result = await ImagePicker.launchImageLibraryAsync({
                 allowsEditing:true,
                 aspect:[4,3]
             })
             if(result.cancelled){
-                toastRef.current.show("cerraste la seleccion de imagenes")
+                toastRef.current.show("you closed the photo gallery")
             }else{
                 uploadImage(result.uri).then(() => {updatePhotoUrl()}).catch(() => { toastRef.current.show("error al acutalizar")})
             }

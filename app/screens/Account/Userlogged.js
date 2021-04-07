@@ -11,6 +11,7 @@ export default function UserLogged(){
     const [userInfo,setUserInfo] = useState(null)
     const [loading,setLoading] = useState(false);
     const [loadingText,setLoadingText] = useState("");
+    const [reloadUser, setReloadUser] = useState(false)
     const toastRef=useRef();
 
     useEffect(() => {
@@ -18,12 +19,13 @@ export default function UserLogged(){
             const user = await firebase.auth().currentUser;
             setUserInfo(user);
         })()
-    }, [])
+        setReloadUser(false)
+    }, [reloadUser])
     return(
         <View style={styles.viewUserInfo}>
             {userInfo && <InfoUser userInfo={userInfo} toastRef={toastRef} 
             setLoading={setLoading} setLoadingText={setLoadingText}></InfoUser>}
-            <AccountOptions userInfo={userInfo} toastRef={toastRef}></AccountOptions>
+            <AccountOptions userInfo={userInfo} toastRef={toastRef} setReloadUser={setReloadUser}></AccountOptions>
             <Button title="Log out" 
              onPress={() => firebase.auth().signOut()}
              buttonStyle={styles.btnLogout}
